@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.bit.emp.mapper.EmpMapper">
+
+	<select id="getList" resultType="edu.bit.emp.vo.EmpVO">
+   <![CDATA[
+      select e.*, d.dname, d.loc from emp e, dept d where e.deptno=d.deptno order by e.ename asc
+   ]]>
+	</select>
+
+	<!-- <select id="read" resultType="edu.bit.emp.vo.EmpVO">
+	<![CDATA[
+		select * from mvc_board where bId = #{bId}
+	]]>
+	</select> -->
+   
+   <insert id="insertEmp" > 
+	<![CDATA[
+		insert into emp (String empno, String ename, String job, String mgr,
+		String hiredate, String sal, String comm, String deptno)
+		values (#{empno}, #{ename}, #{job}, #{mgr},
+		#{hiredate}, #{sal}, #{comm}, #{deptno})
+	]]>
+	</insert>
+	
+	
+</mapper>

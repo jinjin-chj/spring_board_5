@@ -6,32 +6,45 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
+<style>
+	.list {
+	font-weight:bold;
+	text-align:center;
+	}
+</style>
 </head>
 <body>
-   
-   <table width="500" cellpadding="0" cellspacing="0" border="1">
-      <tr>
-         <td>번호</td>
-         <td>이름</td>
-         <td>제목</td>
-         <td>날짜</td>
-         <td>히트</td>
-      </tr>
-      <c:forEach items="${list}" var="BoardVO">
-      <tr>
-         <td>${BoardVO.bId}</td>
-         <td>${BoardVO.bName}</td>
-         <td>
-            <c:forEach begin="1" end="${BoardVO.bIndent}">[re.]</c:forEach>
-            <a href="content_view.do?bId=${BoardVO.bId}">${BoardVO.bTitle}</a></td>
-         <td>${BoardVO.bDate}</td>
-         <td>${BoardVO.bHit}</td>
-      </tr>
-      </c:forEach>
-      <tr>
-         <td colspan="5"> <a href="write_view.do">글작성</a> </td>
-      </tr>
-   </table>
-   
+<h2>EMP 테이블 직원 목록</h2>
+	<table border="1">
+		<tr class="list">
+			<td>사원번호</td>
+			<td>사원이름</td>
+			<td>직급(업무)</td>
+			<td>상사(이름)</td>
+			<td>입사일</td>
+			<td>급여</td>
+			<td>커미션</td>
+			<td>부서번호</td>
+			<!-- <td>부서이름</td>
+			<td>부서위치</td> -->
+			<td>관리</td>
+		</tr>
+		<c:forEach items ="${list}" var="dto">
+		<tr>
+			<td>${dto.empno}</td>
+			<td>${dto.ename}</td>
+			<td>${dto.job}</td>
+			<td>${dto.mgr}</td>
+			<td>${dto.hiredate}</td>
+			<td>${dto.sal}</td>
+			<td>${dto.comm}</td>
+			<td>${dto.deptno}</td>
+			<%-- <td>${dto.dname}</td>
+			<td>${dto.loc}</td> --%>
+			<td><a href=#>수정</a></td>
+		</tr>
+		</c:forEach>
+		
+	</table>
 </body>
 </html>
