@@ -360,46 +360,76 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
-								<a href="insert_view.jsp">사원 정보 입력</a>
+								<a href="insert_view">사원 정보 입력</a>
 							</h6>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
-									<thead>
-										<tr>
-											<td>사원번호</td>
-											<td>사원이름</td>
-											<td>직급(업무)</td>
-											<td>상사(이름)</td>
-											<td>입사일</td>
-											<td>급여</td>
-											<td>커미션</td>
-											<td>부서번호</td>
-											<!-- <td>부서이름</td>
-			<td>부서위치</td> -->
-											<td>관리</td>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${list}" var="EmpVO">
-											<tr>
-												<td>${EmpVO.empno}</td>
-												<td>${EmpVO.ename}</td>
-												<td>${EmpVO.job}</td>
-												<td>${EmpVO.mgr}</td>
-												<td>${EmpVO.hiredate}</td>
-												<td>${EmpVO.sal}</td>
-												<td>${EmpVO.comm}</td>
-												<td>${EmpVO.deptno}</td>
-												<%-- <td>${EmpVO.dname}</td>
-			<td>${EmpVO.loc}</td> --%>
-												<td><a href=#>수정</a></td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>사원번호</th>
+                      <th>사원이름</th>
+                      <th>직급(업무)</th>
+                      <th>상사(이름)</th>
+                      <th>입사일</th>
+                      <th>급여</th>
+                      <th>커미션</th>
+                      <th>부서번호</th>
+                      <th>부서이름</th>
+                      <th>부서위치</th>
+                      <th>관리</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                  <c:forEach items="${list}" var="dto">
+                    <tr>
+				        <td>${dto.empno}</td>
+				        <td>${dto.ename}</td>
+				        <td>${dto.job}</td>
+				        <td>${dto.mgr}</td>     
+				        <td>${dto.hiredate}</td>		        
+				        <td>${dto.sal}</td>
+				        <td>${dto.comm}</td>
+				        <td>${dto.deptno}</td>
+				        <td>${dto.dname}</td>
+				        <td>${dto.loc}</td>
+				        <td><a href="modify_view?empno=${dto.empno}">관리</a></td>
+	      		    </tr>         
+                   </c:forEach>
+                  
+                  </tbody>
+                  <tr style="text-align:center;">
+         <td colspan="11"> <c:if test="${pageMaker.prev}">
+         <a href="main${pageMaker.makeQuery(pageMaker.startPage - 1) }">Previous</a>
+      </c:if>
+
+      <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+         <c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+         <a href="main${pageMaker.makeQuery(idx)}">${idx}</a>
+      </c:forEach>
+      
+      <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+         <a href="main${pageMaker.makeQuery(pageMaker.endPage +1) }"> Next</a>
+      </c:if> 
+      </tr>
+                </table>
+ 
+                <%-- <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><c:if test="${pageMaker.prev}">
+         <a href="main${pageMaker.makeQuery(pageMaker.startPage - 1) }">Previous </a></c:if></li>
+    <li class="page-item"><c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+         <c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+         <a href="main${pageMaker.makeQuery(idx)}">${idx}</a>
+      </c:forEach></li>
+    
+    <li class="page-item"><c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+         <a href="main${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a>
+      </c:if> </li>
+  </ul>
+</nav> --%>
 							</div>
 						</div>
 					</div>
