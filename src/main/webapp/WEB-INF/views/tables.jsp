@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>EMP 직원 목록 페이지</title>
+<title>EMP 직원 목록</title>
 
 <!-- Custom fonts for this template -->
 <link href="${pageContext.request.contextPath}/resources/sb_admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -354,7 +354,7 @@
 
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">EMP 테이블 직원 목록</h1>
-					<p class="mb-4">직원 리스트 페이지입니다.</p>
+					<p class="mb-4">직원 목록 페이지입니다.</p>
 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
@@ -400,7 +400,8 @@
                    </c:forEach>
                   
                   
-                  <tr style="text-align:center;">
+                  
+                 <%--  <tr style="text-align:center;">
         			 <td colspan="11"> <c:if test="${pageMaker.prev}">
 				         <a href="tables${pageMaker.makeQuery(pageMaker.startPage - 1) }">Prev </a>
 				      </c:if>
@@ -414,24 +415,29 @@
 				         <a href="tables${pageMaker.makeQuery(pageMaker.endPage +1) }"> Next</a>
 				      </c:if> 
 				      </td>
-				   </tr>
+				   </tr> --%>
 				   </tbody>
+				   
               </table>
+             
+               <ul class="pagination justify-content-center">
+          
+          <c:if test="${pageMaker.prev}">
+          	<li class="paginate_button previous"><a class="page-link" href="tables${pageMaker.makeQuery(pageMaker.startPage - 1)}">Previous</a></li>
+          </c:if>
+          
+          <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+          	<c:out value="${pageMaker.cri.pageNum == idx?'':''}"/>
+			<li class="paginate_button" ><a class="page-link" href="tables${pageMaker.makeQuery(idx)}">${idx}</a></li>
+		  </c:forEach>
+		  
+		  <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+		  	<li class="paginate_button next"><a class="page-link" href="tables${pageMaker.makeQuery(pageMaker.endPage + 1)}">Next</a></li>
+		  </c:if>
+		  
+		  </ul>
  
-                <%-- <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item"><c:if test="${pageMaker.prev}">
-         <a href="main${pageMaker.makeQuery(pageMaker.startPage - 1) }">Previous </a></c:if></li>
-    <li class="page-item"><c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-         <c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-         <a href="main${pageMaker.makeQuery(idx)}">${idx}</a>
-      </c:forEach></li>
-    
-    <li class="page-item"><c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-         <a href="main${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a>
-      </c:if> </li>
-  </ul>
-</nav> --%>
+                
 							</div>
 						</div>
 					</div>
