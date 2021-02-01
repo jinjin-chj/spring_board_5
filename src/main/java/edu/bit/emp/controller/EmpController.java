@@ -26,7 +26,7 @@ public class EmpController {
 	private EmpService empService;
 
 	// 직원 리스트
-	@GetMapping("/tables")
+	@GetMapping("/list")
 	public void list(Model model) throws Exception {
 		model.addAttribute("list", empService.getList());
 		log.info("list()");
@@ -70,9 +70,9 @@ public class EmpController {
 		return page;
 	}
 
-	@GetMapping("/main")
-	public void main(Criteria cri, Model model) {
-		log.info("main() 호출");
+	@GetMapping("/tables")
+	public void tables(Criteria cri, Model model) {
+		log.info("tables() 호출");
 		log.info(cri);
 		System.out.println(cri);
 
@@ -81,7 +81,6 @@ public class EmpController {
 		int total = empService.getTotal(cri);
 		log.info("total : " + total);
 		model.addAttribute("pageMaker", new PageVO(cri, total));
-
 	}
 
 }

@@ -6,22 +6,22 @@
 	<!-- 전체 직원 정보 리스트 -->
 	<select id="getList" resultType="edu.bit.emp.vo.EmpVO">
 	<![CDATA[
-		SELECT e.empno, e.ename, e.job, e.mgr, e.hiredate, e.sal, e.comm, d.deptno, d.dname, d.loc FROM newdept d, newemp e 
-		WHERE d.deptno = e.deptno AND e.mgr IN (SELECT employee.mgr FROM newemp employee, newemp manager WHERE employee.mgr = manager.empno)
+		SELECT e.empno, e.ename, e.job, e.mgr, e.hiredate, e.sal, e.comm, d.deptno, d.dname, d.loc FROM dept03 d, emp03 e 
+		WHERE d.deptno = e.deptno AND e.mgr IN (SELECT employee.mgr FROM emp03 employee, emp manager WHERE employee.mgr = manager.empno)
 	]]>
 	</select>
 	
 	<!-- 직급정보 불러오기 -->
 	<select id="jobList" resultType="edu.bit.emp.vo.EmpVO">
 	<![CDATA[
-		SELECT DISTINCT job FROM newemp
+		SELECT DISTINCT job FROM emp03
 	]]>
 	</select>
 	
 	<!-- 상사정보 불러오기 -->
 	<select id="mgrList" resultType="edu.bit.emp.vo.EmpVO">
 	<![CDATA[
-		SELECT manager.empno, manager.ename FROM newemp employee, newemp manager 
+		SELECT manager.empno, manager.ename FROM emp03 employee, emp03 manager 
 		WHERE employee.mgr = manager.empno GROUP BY manager.ename, manager.empno
 	]]>
 	</select>
@@ -29,31 +29,27 @@
 	<!-- 부서정보 불러오기 -->
 	<select id="deptList" resultType="edu.bit.emp.vo.EmpVO">
 	<![CDATA[
-		SELECT deptno, dname FROM newdept
+		SELECT deptno, dname FROM dept03
 	]]>
 	</select>
 	
 	<!-- emp/dept 입력 -->
 	<insert id="insert">
 	<![CDATA[
-		INSERT INTO newemp (empno, ename, job, mgr, hiredate, sal, comm, deptno) 
+		INSERT INTO emp03 (empno, ename, job, mgr, hiredate, sal, comm, deptno) 
 		VALUES (#{empno}, #{ename}, #{job}, #{mgr}, #{hiredate}, #{sal}, #{comm}, #{deptno})
 	]]>
 	</insert>
 	
 	<select id="getListWithPaging" resultType="edu.bit.emp.vo.EmpVO">
 	<![CDATA[
-		select * from (
-			select rownum as rnum, a.* from (
-				SELECT e.empno, e.ename, e.job, e.mgr, e.hiredate, e.sal, e.comm, d.deptno, d.dname, d.loc FROM newdept d, newemp e 
-		WHERE d.deptno = e.deptno AND e.mgr IN (SELECT employee.mgr FROM newemp employee, newemp manager WHERE employee.mgr = manager.empno)
-		) a where rownum <= #{pageNum} * #{amount}
-		) where rnum > (#{pageNum} -1) * #{amount} 
-	]]>
+	select * from(select rownum as rnum, a.* from(select * from emp03 order by empno asc
+	) a where rownum <= #{pageNum} * #{amount}) where rnum > (#{pageNum}-1) * #{amount}
+]]>
 	</select>
 	
 	<select id="getTotalCount" resultType="int">
-		select count(*) from FROM newemp e, newdept d where d.deptno = e.deptno
+		select count(*) from emp03
 	</select>
 	
 </mapper>

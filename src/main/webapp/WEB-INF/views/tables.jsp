@@ -399,22 +399,24 @@
 	      		    </tr>         
                    </c:forEach>
                   
-                  </tbody>
+                  
                   <tr style="text-align:center;">
-         <td colspan="11"> <c:if test="${pageMaker.prev}">
-         <a href="main${pageMaker.makeQuery(pageMaker.startPage - 1) }">Previous</a>
-      </c:if>
-
-      <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-         <c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-         <a href="main${pageMaker.makeQuery(idx)}">${idx}</a>
-      </c:forEach>
-      
-      <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-         <a href="main${pageMaker.makeQuery(pageMaker.endPage +1) }"> Next</a>
-      </c:if> 
-      </tr>
-                </table>
+        			 <td colspan="11"> <c:if test="${pageMaker.prev}">
+				         <a href="tables${pageMaker.makeQuery(pageMaker.startPage - 1) }">Prev </a>
+				      </c:if>
+				
+				      <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+				         <c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
+				         <a href="tables${pageMaker.makeQuery(idx)}">${idx}</a>
+				      </c:forEach>
+				      
+				      <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+				         <a href="tables${pageMaker.makeQuery(pageMaker.endPage +1) }"> Next</a>
+				      </c:if> 
+				      </td>
+				   </tr>
+				   </tbody>
+              </table>
  
                 <%-- <nav aria-label="Page navigation example">
   <ul class="pagination">
